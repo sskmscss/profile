@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
-import { Mail, Phone, Linkedin, Download, ChevronDown } from "lucide-react"
+import { Mail, Phone, Linkedin, Download, ChevronDown, MessageSquare } from "lucide-react"
 import Image from "next/image"
 import { useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
@@ -25,6 +25,11 @@ export default function ProfilePage() {
     }
   }, [tabParam])
 
+  // Scroll to top when tab changes
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [activeTab])
+
   const handleDownloadResume = () => {
     // Create a link to download the resume
     const link = document.createElement("a")
@@ -34,6 +39,80 @@ export default function ProfilePage() {
     link.click()
     document.body.removeChild(link)
   }
+
+  // Tab colors for highlighting
+  const tabColors = {
+    skills: {
+      bg: "bg-blue-50",
+      text: "text-blue-700",
+      border: "border-blue-300",
+    },
+    experience: {
+      bg: "bg-green-50",
+      text: "text-green-700",
+      border: "border-green-300",
+    },
+    achievements: {
+      bg: "bg-purple-50",
+      text: "text-purple-700",
+      border: "border-purple-300",
+    },
+    projects: {
+      bg: "bg-amber-50",
+      text: "text-amber-700",
+      border: "border-amber-300",
+    },
+    certifications: {
+      bg: "bg-teal-50",
+      text: "text-teal-700",
+      border: "border-teal-300",
+    },
+    education: {
+      bg: "bg-rose-50",
+      text: "text-rose-700",
+      border: "border-rose-300",
+    },
+  }
+
+  // Microsoft certifications data
+  const certifications = [
+    {
+      title: "Microsoft Certified: DevOps Engineer Expert",
+      icon: "devops-engineer-expert",
+      url: "https://learn.microsoft.com/en-us/users/sarans-3016/credentials/a430a5667c474e51",
+      color: "blue",
+    },
+    {
+      title: "Microsoft Certified: Azure Solutions Architect Expert",
+      icon: "solutions-architect-expert",
+      url: "https://learn.microsoft.com/en-us/users/sarans-3016/credentials/3330f48beb5e1e50",
+      color: "blue",
+    },
+    {
+      title: "Microsoft Certified: Azure Developer Associate",
+      icon: "developer-associate",
+      url: "https://learn.microsoft.com/en-us/users/sarans-3016/credentials/60ce2b0683607ee9",
+      color: "blue",
+    },
+    {
+      title: "Microsoft Certified: Azure Administrator Associate",
+      icon: "administrator-associate",
+      url: "https://learn.microsoft.com/en-us/users/sarans-3016/credentials/fdc269bf8997eb57",
+      color: "blue",
+    },
+    {
+      title: "Microsoft Certified: Azure Data Fundamentals",
+      icon: "fundamentals",
+      url: "https://learn.microsoft.com/en-gb/users/sarans-3016/credentials/e7893cd10b31bc83",
+      color: "blue",
+    },
+    {
+      title: "Microsoft Certified: Azure Fundamentals",
+      icon: "fundamentals",
+      url: "https://learn.microsoft.com/en-gb/users/sarans-3016/credentials/f6c6680c19503d60",
+      color: "blue",
+    },
+  ]
 
   // Project data in descending order by date
   const projects = [
@@ -211,6 +290,60 @@ export default function ProfilePage() {
   // Display only first 8 projects initially
   const displayedProjects = showAllProjects ? projects : projects.slice(0, 8)
 
+  // Skill categories with improved layout
+  const skillCategories = [
+    {
+      title: "Backend",
+      skills: ["Java", "Kotlin", "PHP", "Perl"],
+      color: "blue",
+    },
+    {
+      title: "Frontend",
+      skills: ["Angular", "ReactJS"],
+      color: "green",
+    },
+    {
+      title: "Databases",
+      skills: ["PostgreSQL", "MySQL", "Oracle", "CosmosDB", "MongoDB"],
+      color: "purple",
+    },
+    {
+      title: "Cloud Platforms",
+      skills: ["Azure", "AWS", "GCP"],
+      color: "amber",
+    },
+    {
+      title: "CI/CD",
+      skills: ["Jenkins", "EPAM Delivery Platform"],
+      color: "teal",
+    },
+    {
+      title: "Observability",
+      skills: ["AppInsights", "Prometheus", "Cloud Watch"],
+      color: "rose",
+    },
+    {
+      title: "Frameworks & Architecture",
+      skills: ["Spring Boot", "Hibernate", "Microservice", "SOLID Design Principles"],
+      color: "indigo",
+    },
+    {
+      title: "Messaging & Streaming",
+      skills: ["Apache Kafka", "Confluent Kafka", "RabbitMQ", "ActiveMQ"],
+      color: "cyan",
+    },
+    {
+      title: "Tools & Technologies",
+      skills: ["Docker", "Kubernetes", "Jenkins", "Prometheus", "Grafana"],
+      color: "orange",
+    },
+    {
+      title: "Others",
+      skills: ["Jira", "Nginx", "Tomcat", "Apache2", "Maven", "Gradle"],
+      color: "emerald",
+    },
+  ]
+
   return (
     <main className="min-h-screen container mx-auto px-4 py-12 bg-gradient-to-b from-gray-50 to-white">
       <div className="flex flex-col md:flex-row gap-8 mb-8">
@@ -243,8 +376,25 @@ export default function ProfilePage() {
                 </div>
                 <div className="flex items-center gap-2 bg-white p-2 rounded-md shadow-sm">
                   <Linkedin className="h-4 w-4 text-blue-500" />
-                  <a href="#" className="text-gray-700 hover:underline">
+                  <a
+                    href="https://www.linkedin.com/in/saravanakumar-s-architect/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
                     LinkedIn Profile
+                  </a>
+                </div>
+                {/* WhatsApp Button */}
+                <div className="flex items-center gap-2 bg-white p-2 rounded-md shadow-sm">
+                  <MessageSquare className="h-4 w-4 text-green-500" />
+                  <a
+                    href="https://wa.me/919791004409"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-green-600 hover:underline"
+                  >
+                    WhatsApp
                   </a>
                 </div>
               </div>
@@ -285,42 +435,42 @@ export default function ProfilePage() {
           <TabsTrigger
             value="skills"
             onClick={() => window.history.pushState({}, "", "?tab=skills")}
-            className="data-[state=active]:bg-blue-50 data-[state=active]:text-blue-700"
+            className={`${activeTab === "skills" ? `${tabColors.skills.bg} ${tabColors.skills.text} border-b-2 ${tabColors.skills.border}` : ""}`}
           >
             Technical Skills
           </TabsTrigger>
           <TabsTrigger
             value="experience"
             onClick={() => window.history.pushState({}, "", "?tab=experience")}
-            className="data-[state=active]:bg-blue-50 data-[state=active]:text-blue-700"
+            className={`${activeTab === "experience" ? `${tabColors.experience.bg} ${tabColors.experience.text} border-b-2 ${tabColors.experience.border}` : ""}`}
           >
             Experience
           </TabsTrigger>
           <TabsTrigger
             value="achievements"
             onClick={() => window.history.pushState({}, "", "?tab=achievements")}
-            className="data-[state=active]:bg-blue-50 data-[state=active]:text-blue-700"
+            className={`${activeTab === "achievements" ? `${tabColors.achievements.bg} ${tabColors.achievements.text} border-b-2 ${tabColors.achievements.border}` : ""}`}
           >
             Achievements
           </TabsTrigger>
           <TabsTrigger
             value="projects"
             onClick={() => window.history.pushState({}, "", "?tab=projects")}
-            className="data-[state=active]:bg-blue-50 data-[state=active]:text-blue-700"
+            className={`${activeTab === "projects" ? `${tabColors.projects.bg} ${tabColors.projects.text} border-b-2 ${tabColors.projects.border}` : ""}`}
           >
             Projects
           </TabsTrigger>
           <TabsTrigger
             value="certifications"
             onClick={() => window.history.pushState({}, "", "?tab=certifications")}
-            className="data-[state=active]:bg-blue-50 data-[state=active]:text-blue-700"
+            className={`${activeTab === "certifications" ? `${tabColors.certifications.bg} ${tabColors.certifications.text} border-b-2 ${tabColors.certifications.border}` : ""}`}
           >
             Certifications
           </TabsTrigger>
           <TabsTrigger
             value="education"
             onClick={() => window.history.pushState({}, "", "?tab=education")}
-            className="data-[state=active]:bg-blue-50 data-[state=active]:text-blue-700"
+            className={`${activeTab === "education" ? `${tabColors.education.bg} ${tabColors.education.text} border-b-2 ${tabColors.education.border}` : ""}`}
           >
             Education
           </TabsTrigger>
@@ -328,121 +478,38 @@ export default function ProfilePage() {
 
         <TabsContent value="skills" className="mt-6">
           <Card className="border-none shadow-lg">
-            <CardHeader className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-t-lg">
+            <CardHeader
+              className={`bg-gradient-to-r from-${activeTab === "skills" ? "blue" : "blue"}-50 to-${activeTab === "skills" ? "blue" : "blue"}-100 rounded-t-lg`}
+            >
               <CardTitle className="text-blue-800">Technical Skills</CardTitle>
               <CardDescription>Technologies and tools I specialize in</CardDescription>
             </CardHeader>
             <CardContent className="p-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-white p-4 rounded-lg shadow-sm">
-                  <h3 className="font-semibold mb-2 text-blue-700">Backend</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {["Java", "Kotlin", "PHP", "Perl"].map((skill) => (
-                      <Badge key={skill} variant="secondary" className="bg-blue-50 text-blue-700">
-                        {skill}
-                      </Badge>
-                    ))}
+              {/* Improved Technical Skills Layout */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {skillCategories.map((category, index) => (
+                  <div
+                    key={index}
+                    className={`bg-${category.color}-50 p-4 rounded-lg shadow-sm border border-${category.color}-100 hover:shadow-md transition-shadow`}
+                  >
+                    <h3
+                      className={`font-semibold mb-3 text-${category.color}-700 border-b pb-2 border-${category.color}-200 text-center`}
+                    >
+                      {category.title}
+                    </h3>
+                    <div className="flex flex-wrap gap-2 justify-center">
+                      {category.skills.map((skill) => (
+                        <Badge
+                          key={skill}
+                          variant="secondary"
+                          className={`bg-white text-${category.color}-700 border border-${category.color}-200 hover:bg-${category.color}-100 transition-colors py-1 px-2`}
+                        >
+                          {skill}
+                        </Badge>
+                      ))}
+                    </div>
                   </div>
-                </div>
-
-                <div className="bg-white p-4 rounded-lg shadow-sm">
-                  <h3 className="font-semibold mb-2 text-blue-700">Frontend</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {["Angular", "ReactJS"].map((skill) => (
-                      <Badge key={skill} variant="secondary" className="bg-blue-50 text-blue-700">
-                        {skill}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="bg-white p-4 rounded-lg shadow-sm">
-                  <h3 className="font-semibold mb-2 text-blue-700">Databases</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {["PostgreSQL", "MySQL", "Oracle", "CosmosDB", "MongoDB"].map((skill) => (
-                      <Badge key={skill} variant="secondary" className="bg-blue-50 text-blue-700">
-                        {skill}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="bg-white p-4 rounded-lg shadow-sm">
-                  <h3 className="font-semibold mb-2 text-blue-700">Cloud Platforms</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {["Azure", "AWS", "GCP"].map((skill) => (
-                      <Badge key={skill} variant="secondary" className="bg-blue-50 text-blue-700">
-                        {skill}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="bg-white p-4 rounded-lg shadow-sm">
-                  <h3 className="font-semibold mb-2 text-blue-700">CI/CD</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {["Jenkins", "EPAM Delivery Platform"].map((skill) => (
-                      <Badge key={skill} variant="secondary" className="bg-blue-50 text-blue-700">
-                        {skill}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="bg-white p-4 rounded-lg shadow-sm">
-                  <h3 className="font-semibold mb-2 text-blue-700">Observability</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {["AppInsights", "Prometheus", "Cloud Watch"].map((skill) => (
-                      <Badge key={skill} variant="secondary" className="bg-blue-50 text-blue-700">
-                        {skill}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="bg-white p-4 rounded-lg shadow-sm">
-                  <h3 className="font-semibold mb-2 text-blue-700">Frameworks & Architecture</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {["Spring Boot", "Hibernate", "Microservice", "SOLID Design Principles"].map((skill) => (
-                      <Badge key={skill} variant="secondary" className="bg-blue-50 text-blue-700">
-                        {skill}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="bg-white p-4 rounded-lg shadow-sm">
-                  <h3 className="font-semibold mb-2 text-blue-700">Messaging & Streaming</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {["Apache Kafka", "Confluent Kafka", "RabbitMQ", "ActiveMQ"].map((skill) => (
-                      <Badge key={skill} variant="secondary" className="bg-blue-50 text-blue-700">
-                        {skill}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="bg-white p-4 rounded-lg shadow-sm">
-                  <h3 className="font-semibold mb-2 text-blue-700">Tools & Technologies</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {["Docker", "Kubernetes", "Jenkins", "Prometheus", "Grafana"].map((skill) => (
-                      <Badge key={skill} variant="secondary" className="bg-blue-50 text-blue-700">
-                        {skill}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="bg-white p-4 rounded-lg shadow-sm">
-                  <h3 className="font-semibold mb-2 text-blue-700">Others</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {["Jira", "Nginx", "Tomcat", "Apache2", "Maven", "Gradle"].map((skill) => (
-                      <Badge key={skill} variant="secondary" className="bg-blue-50 text-blue-700">
-                        {skill}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
+                ))}
               </div>
             </CardContent>
           </Card>
@@ -450,8 +517,12 @@ export default function ProfilePage() {
 
         <TabsContent value="experience" className="mt-6">
           <Card className="border-none shadow-lg">
-            <CardHeader className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-t-lg">
-              <CardTitle className="text-blue-800">Professional Experience</CardTitle>
+            <CardHeader
+              className={`bg-gradient-to-r from-${activeTab === "experience" ? "green" : "blue"}-50 to-${activeTab === "experience" ? "green" : "blue"}-100 rounded-t-lg`}
+            >
+              <CardTitle className={`text-${activeTab === "experience" ? "green" : "blue"}-800`}>
+                Professional Experience
+              </CardTitle>
               <CardDescription>My career journey</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6 p-6">
@@ -565,8 +636,12 @@ export default function ProfilePage() {
 
         <TabsContent value="achievements" className="mt-6">
           <Card className="border-none shadow-lg">
-            <CardHeader className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-t-lg">
-              <CardTitle className="text-blue-800">Achievements</CardTitle>
+            <CardHeader
+              className={`bg-gradient-to-r from-${activeTab === "achievements" ? "purple" : "blue"}-50 to-${activeTab === "achievements" ? "purple" : "blue"}-100 rounded-t-lg`}
+            >
+              <CardTitle className={`text-${activeTab === "achievements" ? "purple" : "blue"}-800`}>
+                Achievements
+              </CardTitle>
               <CardDescription>Key accomplishments throughout my career</CardDescription>
             </CardHeader>
             <CardContent className="p-6">
@@ -620,8 +695,12 @@ export default function ProfilePage() {
 
         <TabsContent value="projects" className="mt-6">
           <Card className="border-none shadow-lg">
-            <CardHeader className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-t-lg">
-              <CardTitle className="text-blue-800">Project Details</CardTitle>
+            <CardHeader
+              className={`bg-gradient-to-r from-${activeTab === "projects" ? "amber" : "blue"}-50 to-${activeTab === "projects" ? "amber" : "blue"}-100 rounded-t-lg`}
+            >
+              <CardTitle className={`text-${activeTab === "projects" ? "amber" : "blue"}-800`}>
+                Project Details
+              </CardTitle>
               <CardDescription>Professional project experience</CardDescription>
             </CardHeader>
             <CardContent className="p-6">
@@ -672,141 +751,69 @@ export default function ProfilePage() {
 
         <TabsContent value="certifications" className="mt-6">
           <Card className="border-none shadow-lg">
-            <CardHeader className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-t-lg">
-              <CardTitle className="text-blue-800">Microsoft Azure Certifications</CardTitle>
+            <CardHeader
+              className={`bg-gradient-to-r from-${activeTab === "certifications" ? "teal" : "blue"}-50 to-${activeTab === "certifications" ? "teal" : "blue"}-100 rounded-t-lg`}
+            >
+              <CardTitle className={`text-${activeTab === "certifications" ? "teal" : "blue"}-800`}>
+                Microsoft Azure Certifications
+              </CardTitle>
               <CardDescription>Professional certifications and credentials</CardDescription>
             </CardHeader>
             <CardContent className="p-6">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div className="bg-white rounded-lg border p-6 flex flex-col items-center text-center hover:shadow-md transition-shadow">
-                  <div className="bg-blue-50 p-4 rounded-full mb-4">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="48"
-                      height="48"
-                      viewBox="0 0 48 48"
-                      fill="none"
-                      className="text-blue-600"
-                    >
-                      <path
-                        d="M23.9998 4L6 10.1149V18.2298C6 26.1149 10.9333 33.4851 18.2222 36.5702L23.9998 39L29.7775 36.5702C37.0664 33.4851 41.9997 26.1149 41.9997 18.2298V10.1149L23.9998 4Z"
-                        fill="#0078D4"
-                      />
-                      <path d="M31.8 19.2H25.2V12.6H22.8V19.2H16.2V21.6H22.8V28.2H25.2V21.6H31.8V19.2Z" fill="white" />
-                    </svg>
-                  </div>
-                  <h3 className="font-semibold text-lg mb-2">Azure DevOps Engineer</h3>
-                  <p className="text-sm text-gray-500">Microsoft Certified</p>
-                </div>
-
-                <div className="bg-white rounded-lg border p-6 flex flex-col items-center text-center hover:shadow-md transition-shadow">
-                  <div className="bg-blue-50 p-4 rounded-full mb-4">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="48"
-                      height="48"
-                      viewBox="0 0 48 48"
-                      fill="none"
-                      className="text-blue-600"
-                    >
-                      <path
-                        d="M23.9998 4L6 10.1149V18.2298C6 26.1149 10.9333 33.4851 18.2222 36.5702L23.9998 39L29.7775 36.5702C37.0664 33.4851 41.9997 26.1149 41.9997 18.2298V10.1149L23.9998 4Z"
-                        fill="#0078D4"
-                      />
-                      <path d="M31 19.5H17V22.5H31V19.5Z" fill="white" />
-                      <path d="M31 25.5H17V28.5H31V25.5Z" fill="white" />
-                    </svg>
-                  </div>
-                  <h3 className="font-semibold text-lg mb-2">Azure Data Fundamentals</h3>
-                  <p className="text-sm text-gray-500">Microsoft Certified</p>
-                </div>
-
-                <div className="bg-white rounded-lg border p-6 flex flex-col items-center text-center hover:shadow-md transition-shadow">
-                  <div className="bg-blue-50 p-4 rounded-full mb-4">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="48"
-                      height="48"
-                      viewBox="0 0 48 48"
-                      fill="none"
-                      className="text-blue-600"
-                    >
-                      <path
-                        d="M23.9998 4L6 10.1149V18.2298C6 26.1149 10.9333 33.4851 18.2222 36.5702L23.9998 39L29.7775 36.5702C37.0664 33.4851 41.9997 26.1149 41.9997 18.2298V10.1149L23.9998 4Z"
-                        fill="#0078D4"
-                      />
-                      <path d="M31 19H17V29H31V19Z" fill="white" />
-                    </svg>
-                  </div>
-                  <h3 className="font-semibold text-lg mb-2">Azure Administrator</h3>
-                  <p className="text-sm text-gray-500">Microsoft Certified</p>
-                </div>
-
-                <div className="bg-white rounded-lg border p-6 flex flex-col items-center text-center hover:shadow-md transition-shadow">
-                  <div className="bg-blue-50 p-4 rounded-full mb-4">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="48"
-                      height="48"
-                      viewBox="0 0 48 48"
-                      fill="none"
-                      className="text-blue-600"
-                    >
-                      <path
-                        d="M23.9998 4L6 10.1149V18.2298C6 26.1149 10.9333 33.4851 18.2222 36.5702L23.9998 39L29.7775 36.5702C37.0664 33.4851 41.9997 26.1149 41.9997 18.2298V10.1149L23.9998 4Z"
-                        fill="#0078D4"
-                      />
-                      <path d="M24 16L28 24H20L24 16Z" fill="white" />
-                      <path d="M24 32L20 24H28L24 32Z" fill="white" />
-                    </svg>
-                  </div>
-                  <h3 className="font-semibold text-lg mb-2">Azure Fundamentals</h3>
-                  <p className="text-sm text-gray-500">Microsoft Certified</p>
-                </div>
-
-                <div className="bg-white rounded-lg border p-6 flex flex-col items-center text-center hover:shadow-md transition-shadow">
-                  <div className="bg-blue-50 p-4 rounded-full mb-4">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="48"
-                      height="48"
-                      viewBox="0 0 48 48"
-                      fill="none"
-                      className="text-blue-600"
-                    >
-                      <path
-                        d="M23.9998 4L6 10.1149V18.2298C6 26.1149 10.9333 33.4851 18.2222 36.5702L23.9998 39L29.7775 36.5702C37.0664 33.4851 41.9997 26.1149 41.9997 18.2298V10.1149L23.9998 4Z"
-                        fill="#0078D4"
-                      />
-                      <path d="M18 19V29H22V24H26V29H30V19H18ZM22 22V21H26V22H22Z" fill="white" />
-                    </svg>
-                  </div>
-                  <h3 className="font-semibold text-lg mb-2">Azure Associate Developer</h3>
-                  <p className="text-sm text-gray-500">Microsoft Certified</p>
-                </div>
-
-                <div className="bg-white rounded-lg border p-6 flex flex-col items-center text-center hover:shadow-md transition-shadow">
-                  <div className="bg-blue-50 p-4 rounded-full mb-4">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="48"
-                      height="48"
-                      viewBox="0 0 48 48"
-                      fill="none"
-                      className="text-blue-600"
-                    >
-                      <path
-                        d="M23.9998 4L6 10.1149V18.2298C6 26.1149 10.9333 33.4851 18.2222 36.5702L23.9998 39L29.7775 36.5702C37.0664 33.4851 41.9997 26.1149 41.9997 18.2298V10.1149L23.9998 4Z"
-                        fill="#0078D4"
-                      />
-                      <path d="M31 19H17V22H31V19Z" fill="white" />
-                      <path d="M24 22V29H31V26H27V22H24Z" fill="white" />
-                      <path d="M17 29H24V26H20V22H17V29Z" fill="white" />
-                    </svg>
-                  </div>
-                  <h3 className="font-semibold text-lg mb-2">Azure Solutions Architect</h3>
-                  <p className="text-sm text-gray-500">Microsoft Certified</p>
-                </div>
+                {certifications.map((cert, index) => (
+                  <a
+                    key={index}
+                    href={cert.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-white rounded-lg border p-6 flex flex-col items-center text-center hover:shadow-md transition-shadow"
+                  >
+                    <div className="bg-blue-50 p-4 rounded-full mb-4">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="48"
+                        height="48"
+                        viewBox="0 0 48 48"
+                        fill="none"
+                        className="text-blue-600"
+                      >
+                        <path
+                          d="M23.9998 4L6 10.1149V18.2298C6 26.1149 10.9333 33.4851 18.2222 36.5702L23.9998 39L29.7775 36.5702C37.0664 33.4851 41.9997 26.1149 41.9997 18.2298V10.1149L23.9998 4Z"
+                          fill="#0078D4"
+                        />
+                        {cert.icon === "devops-engineer-expert" && (
+                          <path
+                            d="M31.8 19.2H25.2V12.6H22.8V19.2H16.2V21.6H22.8V28.2H25.2V21.6H31.8V19.2Z"
+                            fill="white"
+                          />
+                        )}
+                        {cert.icon === "solutions-architect-expert" && (
+                          <>
+                            <path d="M31 19H17V22H31V19Z" fill="white" />
+                            <path d="M24 22V29H31V26H27V22H24Z" fill="white" />
+                            <path d="M17 29H24V26H20V22H17V29Z" fill="white" />
+                          </>
+                        )}
+                        {cert.icon === "developer-associate" && (
+                          <>
+                            <path d="M18 19V29H22V24H26V29H30V19H18ZM22 22V21H26V22H22Z" fill="white" />
+                          </>
+                        )}
+                        {cert.icon === "administrator-associate" && <path d="M31 19H17V29H31V19Z" fill="white" />}
+                        {cert.icon === "fundamentals" && (
+                          <>
+                            <path d="M24 16L28 24H20L24 16Z" fill="white" />
+                            <path d="M24 32L20 24H28L24 32Z" fill="white" />
+                          </>
+                        )}
+                      </svg>
+                    </div>
+                    <h3 className="font-semibold text-lg mb-2">{cert.title}</h3>
+                    <p className="text-sm text-gray-500">Microsoft Certified</p>
+                    <span className="mt-2 text-xs text-blue-600 hover:underline">View Credential</span>
+                  </a>
+                ))}
               </div>
             </CardContent>
           </Card>
@@ -814,8 +821,10 @@ export default function ProfilePage() {
 
         <TabsContent value="education" className="mt-6">
           <Card className="border-none shadow-lg">
-            <CardHeader className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-t-lg">
-              <CardTitle className="text-blue-800">Education</CardTitle>
+            <CardHeader
+              className={`bg-gradient-to-r from-${activeTab === "education" ? "rose" : "blue"}-50 to-${activeTab === "education" ? "rose" : "blue"}-100 rounded-t-lg`}
+            >
+              <CardTitle className={`text-${activeTab === "education" ? "rose" : "blue"}-800`}>Education</CardTitle>
               <CardDescription>Academic qualifications</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4 p-6">
