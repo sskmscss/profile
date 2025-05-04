@@ -82,7 +82,7 @@ export default function Home() {
           <div className="h-full flex items-center justify-center p-6">
             <div className="relative shadow-xl rounded-lg overflow-hidden border-4 border-white max-w-[300px]">
               <Image
-                src="/profile/images/passport.jpg"
+                src="/images/passport.jpg"
                 alt="Saravana Kumar"
                 width={300}
                 height={375}

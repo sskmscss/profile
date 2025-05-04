@@ -33,7 +33,7 @@ export default function ProfilePage() {
   const handleDownloadResume = () => {
     // Create a link to download the resume
     const link = document.createElement("a")
-    link.href = "/profile/assets/saravana_kumar_resume.pdf"
+    link.href = "/assets/saravana_kumar_resume.pdf"
     link.download = "Saravana_Kumar_Resume.pdf"
     document.body.appendChild(link)
     link.click()
@@ -349,7 +349,7 @@ export default function ProfilePage() {
       <div className="flex flex-col md:flex-row gap-8 mb-8">
         <div className="flex-shrink-0">
           <div className="relative w-48 h-48 overflow-hidden rounded-lg border shadow-md bg-white">
-            <Image src="/profile/images/passport.jpg" alt="Saravana Kumar" width={192} height={192} className="object-cover" />
+            <Image src="/images/passport.jpg" alt="Saravana Kumar" width={192} height={192} className="object-cover" />
           </div>
         </div>
 

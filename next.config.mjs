@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',  // This enables static export
-  basePath: '/profile', // Always use this path (no conditional needed)
-  assetPrefix: '/profile/', // Always use this prefix
+  basePath: '', // Always use this path (no conditional needed)
+  assetPrefix: '', // Always use this prefix
   eslint: {
     ignoreDuringBuilds: true,
   },
