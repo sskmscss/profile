@@ -40,6 +40,16 @@ export default function ProfilePage() {
     document.body.removeChild(link)
   }
 
+  const handleDownloadCV = () => {
+    // Create a link to download the resume
+    const link = document.createElement("a")
+    link.href = "/assets/SaravanaKumar_CV.pdf"
+    link.download = "Saravana_Kumar_CV.pdf"
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
+
   // Tab colors for highlighting
   const tabColors = {
     skills: {
@@ -406,6 +416,15 @@ export default function ProfilePage() {
             >
               <Download className="h-4 w-4" />
               Download Resume
+            </Button>
+
+            
+            <Button
+              onClick={handleDownloadCV}
+              className="flex gap-2 items-center bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 shadow-md"
+            >
+              <Download className="h-4 w-4" />
+              Download CV
             </Button>
           </div>
 
